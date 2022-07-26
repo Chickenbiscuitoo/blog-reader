@@ -6,23 +6,21 @@ const API_URL = 'http://localhost:5000/api/'
 const getApiStats = async () => {
 	const response = await axios.get(API_URL)
 
-	return response
+	return response.data
 }
 
 // Get articles
 const getAllArticles = async () => {
 	const response = await axios.get(API_URL + 'articles')
 
-	return response
+	return response.data.list_articles
 }
 
 // Get specific article
 const getArticle = async (articleId) => {
-	const response = await axios.get(
-		API_URL + 'articles/' + articleId
-	)
+	const response = await axios.get(API_URL + 'article/' + articleId)
 
-	return response
+	return response.data
 }
 
 const articleService = {

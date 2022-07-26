@@ -4,6 +4,7 @@ import articleService from './articleService'
 const initialState = {
 	apiStats: [],
 	articles: [],
+	selectedArticle: {},
 	isError: false,
 	isSuccess: false,
 	isLoading: false,
@@ -78,7 +79,7 @@ export const articleSlice = createSlice({
 			.addCase(getApiStats.fulfilled, (state, action) => {
 				state.isLoading = false
 				state.isSuccess = true
-				state.apiStats.push(action.payload)
+				state.apiStats = action.payload
 			})
 			.addCase(getApiStats.rejected, (state, action) => {
 				state.isLoading = false
@@ -91,9 +92,22 @@ export const articleSlice = createSlice({
 			.addCase(getAllArticles.fulfilled, (state, action) => {
 				state.isLoading = false
 				state.isSuccess = true
-				state.articles.push(action.payload)
+				state.articles = action.payload
 			})
 			.addCase(getAllArticles.rejected, (state, action) => {
+				state.isLoading = false
+				state.isError = true
+				state.message = action.payload
+			})
+			.addCase(getArticle.pending, (state) => {
+				state.isLoading = true
+			})
+			.addCase(getArticle.fulfilled, (state, action) => {
+				state.isLoading = false
+				state.isSuccess = true
+				state.selectedArticle = action.payload
+			})
+			.addCase(getArticle.rejected, (state, action) => {
 				state.isLoading = false
 				state.isError = true
 				state.message = action.payload
