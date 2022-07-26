@@ -2,10 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import articleService from './articleService'
 
 const initialState = {
+	apiStats: [],
 	articles: [],
 	isError: false,
 	isSuccess: false,
 	isLoading: false,
+	message: '',
 }
 
 // Get API stats
@@ -61,3 +63,43 @@ export const getArticle = createAsyncThunk(
 		}
 	}
 )
+
+export const articleSlice = createSlice({
+	name: 'article',
+	initialState,
+	reducers: {
+		reset: (state) => initialState,
+	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(getApiStats.pending, (state) => {
+				state.isLoading = true
+			})
+			.addCase(getApiStats.fulfilled, (state, action) => {
+				state.isLoading = false
+				state.isSuccess = true
+				state.apiStats.push(action.payload)
+			})
+			.addCase(getApiStats.rejected, (state, action) => {
+				state.isLoading = false
+				state.isError = true
+				state.message = action.payload
+			})
+			.addCase(getAllArticles.pending, (state) => {
+				state.isLoading = true
+			})
+			.addCase(getAllArticles.fulfilled, (state, action) => {
+				state.isLoading = false
+				state.isSuccess = true
+				state.articles.push(action.payload)
+			})
+			.addCase(getAllArticles.rejected, (state, action) => {
+				state.isLoading = false
+				state.isError = true
+				state.message = action.payload
+			})
+	},
+})
+
+export const { reset } = articleSlice.actions
+export default goalSlice.reducer
