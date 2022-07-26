@@ -102,4 +102,4 @@ export const articleSlice = createSlice({
 })
 
 export const { reset } = articleSlice.actions
-export default goalSlice.reducer
+export default articleSlice.reducer

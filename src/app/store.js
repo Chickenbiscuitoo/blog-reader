@@ -1,7 +1,8 @@
-import { configureStore, createAsyncThunk } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
+import articleReducer from '../features/articleSlice'
 
 export const store = configureStore({
 	reducer: {
-		// counter: counterReducer,
+		article: articleReducer,
 	},
 })

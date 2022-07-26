@@ -12,6 +12,8 @@ const getApiStats = async () => {
 // Get articles
 const getAllArticles = async () => {
 	const response = await axios.get(API_URL + 'articles')
+
+	return response
 }
 
 // Get specific article
@@ -28,3 +30,5 @@ const articleService = {
 	getAllArticles,
 	getArticle,
 }
+
+export default articleService
