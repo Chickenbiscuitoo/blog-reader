@@ -6,7 +6,6 @@ import Spinner from '../components/Spinner'
 import { getArticle, reset } from '../features/articleSlice'
 
 function ArticleDetail() {
-	const [showComments, setShowComments] = useState(false)
 	let { articleId } = useParams()
 
 	const dispatch = useDispatch()
@@ -31,25 +30,24 @@ function ArticleDetail() {
 
 	function comments() {
 		const commentsArr = selectedArticle.comments
-		if (commentsArr) {
+		if (commentsArr && commentsArr.length > 0) {
 			return commentsArr.map((comment) => (
 				<CommentItem comment={comment} />
 			))
 		} else {
-			return <h3>No comments found</h3>
+			return <p>No comments</p>
 		}
 	}
 
 	return (
-		<div>
+		<div className="article-page">
 			<h2>{selectedArticle.title}</h2>
 			{selectedArticle.author ? (
 				<h3>{selectedArticle.author.name}</h3>
 			) : (
 				<h3>Unknown</h3>
 			)}
-			<p>{selectedArticle.text}</p>
-			<hr />
+			<p className="article-text">{selectedArticle.text}</p>
 			{comments()}
 		</div>
 	)

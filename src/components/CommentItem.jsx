@@ -9,12 +9,11 @@ function CommentItem({ comment }) {
 	})
 
 	return (
-		<div>
+		<div className="comment-container">
 			<h6>
 				{comment.author} - {formatedDate}
 			</h6>
 			<p>{comment.text}</p>
-			<hr />
 		</div>
 	)
 }

@@ -35,7 +35,7 @@ function Dashboard() {
 		/>
 	))
 
-	return <>{articleItems}</>
+	return <div className="article-container">{articleItems}</div>
 }
 
 export default Dashboard
