@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import CommentItem from '../components/CommentItem'
 import Spinner from '../components/Spinner'
 import { getArticle, reset } from '../features/articleSlice'
 
 function ArticleDetail() {
+	const [showComments, setShowComments] = useState(false)
 	let { articleId } = useParams()
 
 	const dispatch = useDispatch()
@@ -21,10 +23,21 @@ function ArticleDetail() {
 		return () => {
 			dispatch(reset())
 		}
-	}, [isError, message, dispatch])
+	}, [isError, message, dispatch, articleId])
 
 	if (isLoading) {
 		return <Spinner />
+	}
+
+	function comments() {
+		const commentsArr = selectedArticle.comments
+		if (commentsArr) {
+			return commentsArr.map((comment) => (
+				<CommentItem comment={comment} />
+			))
+		} else {
+			return <h3>No comments found</h3>
+		}
 	}
 
 	return (
@@ -36,6 +49,8 @@ function ArticleDetail() {
 				<h3>Unknown</h3>
 			)}
 			<p>{selectedArticle.text}</p>
+			<hr />
+			{comments()}
 		</div>
 	)
 }
