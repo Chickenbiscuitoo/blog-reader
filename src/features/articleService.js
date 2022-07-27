@@ -19,8 +19,7 @@ const getAllArticles = async () => {
 // Get specific article
 const getArticle = async (articleId) => {
 	const response = await axios.get(API_URL + 'article/' + articleId)
-
-	return response.data
+	return response.data.article
 }
 
 const articleService = {

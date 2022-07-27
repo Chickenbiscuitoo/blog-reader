@@ -23,19 +23,20 @@ function ArticleDetail() {
 		}
 	}, [isError, message, dispatch])
 
-	console.log(selectedArticle.article)
-
 	if (isLoading) {
 		return <Spinner />
 	}
 
 	return (
 		<div>
-			<h2>{selectedArticle.article.title}</h2>
-			<h3>{selectedArticle.article.author.name}</h3>
-			<p>{selectedArticle.article.text}</p>
+			<h2>{selectedArticle.title}</h2>
+			{selectedArticle.author ? (
+				<h3>{selectedArticle.author.name}</h3>
+			) : (
+				<h3>Unknown</h3>
+			)}
+			<p>{selectedArticle.text}</p>
 		</div>
 	)
 }
-
 export default ArticleDetail
